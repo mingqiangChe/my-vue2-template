@@ -144,29 +144,6 @@ webpack 打包配置
 
 
 
-
-
-```json
-{
-  "name": "build-vue2-template",
-  "version": "1.0.0",
-  "description": "vue2开发模版",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.config.js",
-    "dev": "webpack serve --config webpack.config.js"
-  },
-  "author": "mingqiangChe",
-  "license": "ISC",
-
-  },
-
-  }
-}
-
-```
-
 分页组件
 
 crud
