@@ -1,19 +1,21 @@
-# my-vue2-template
+# vue2从0到1搭建
 
-## Project setup
-```
-yarn install
-```
+## 已实现功能
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+- [x] eslint+prettier
 
-### Compiles and minifies for production
-```
-yarn build
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## 待实现
+
+webpack 打包配置
+
+分页组件
+
+crud
+
+axios
+
+router路由
+
+vuex实现
