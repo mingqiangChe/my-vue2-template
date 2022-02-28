@@ -1,12 +1,10 @@
-# vue2从0到1搭建
+# vue2 vue cli搭建
 
 ## 已实现功能
 
 - [x] eslint+prettier
 
-卡在了vu e.config.js
 
-应该就配置proxy devserve就可以
 
 ## 待实现
 
