@@ -17,40 +17,49 @@ module.exports = {
   console.log(process.env.NODE_ENV);
   const NODE_ENV = process.env.NODE_ENV;
   // console.log(NODE_ENV)
+
+  // 模块别名的配置，为了使用方便，一般来说所有模块都是要配置一下别名的
+  alias: {
+    'vue': path.resolve(__dirname, '/src/services/lib/vue.min.js'),
+    'axios': path.resolve(__dirname, '/src/services/lib/axios.min.js')
+  }
   entry: {
-    // 配置多入口文件
-    index: path.resolve(__dirname, '/src/index.js'),
-    main: path.resolve(__dirname, '/src/main.js')
+    // 配置多入口文件vendors: [ 'vue', 'axios' ] 
+    // main: path.resolve(__dirname, '/src/main.js'),
+    index: path.resolve(__dirname, '/src/main.js'),
+    vendors: ('vue', 'axios')
   },
   output: {
     // 配置打包文件输出的目录
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '/dist'),
     // 生成的 js 文件名称
     filename: 'js/[name].[hash:8].js',
     // 生成的 chunk 名称
     chunkFilename: 'js/[name].[hash:8].js',
     // 资源引用的路径
     publicPath: '/'
+    /* 静态目录，可以直接从这里取文件 */
+    //  publicPath: 'http://www.xxx.com/dist/',
   },
-  // devServer: {
-  //   hot: true,
-  //   port: 3000,
-  // contentBase: './dist',
-  //   open: true,
-  //   // 反向代理
-  //   proxy: {
-  //     "/api": {
-  //       //代理路径 例如 https://baidu.com
-  //       target: "https://baidu.com",
-  //       // 将主机标头的原点更改为目标URL
-  //       changeOrigin: true,
-  //       ws: true,
-  //       pathRewrite: {
-  //         "^/api": ""
-  //       }
-  //     }
-  //   }
-  // },
+  devServer: {
+    hot: true,
+    port: 3000,
+    contentBase: './dist',
+    open: true,
+    // 反向代理
+    proxy: {
+      "/api": {
+        //代理路径 例如 https://baidu.com
+        target: "https://baidu.com",
+        // 将主机标头的原点更改为目标URL
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          "^/api": ""
+        }
+      }
+    }
+  },
   resolve: {
     alias: {
       vue$: 'vue/dist/vue.runtime.esm.js'

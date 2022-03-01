@@ -17,6 +17,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 //压缩js代码
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+// 打包文件分析工具
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 //进行合并，将webpack.base.conf.js中的配置合并到这
 module.exports = merge(webpackConfig, {
@@ -110,7 +111,16 @@ module.exports = merge(webpackConfig, {
       path: '/dist'
     }),
     new BundleAnalyzerPlugin({
-      analyzerMode: 'static'
+      analyzerMode: "server",
+      analyzerHost: "127.0.0.1",
+      analyzerPort: 8888, // 运行后的端口号
+      reportFilename: "report.html",
+      defaultSizes: "parsed",
+      openAnalyzer: true,
+      generateStatsFile: false,
+      statsFilename: "stats.json",
+      statsOptions: null,
+      logLevel: "info"
     }),
     // 使用插件定义全局变量DEV
     new webpack.DefinePlugin({
