@@ -22,7 +22,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 //进行合并，将webpack.base.conf.js中的配置合并到这
 module.exports = merge(webpackConfig, {
   mode: 'production',
-  devtool: '#source-map',
+  devtool: 'source-map',
   optimization: {
     minimizer: [
       //压缩CSS代码
@@ -79,7 +79,20 @@ module.exports = merge(webpackConfig, {
             loader: 'postcss-loader'
           }
         ]
-      },
+      }, {
+        test: /\.(png|jpg|jpeg|avg|gif)/,
+        loader: 'url-loader',
+        options: {
+          //配置打包后的文件名
+          name: '[name][hash:5].[ext]',
+          //小于这个将进行转码
+          limit: 8 * 1024,
+          //输出的文件路径
+          outputPath: 'images',
+          //关闭url-loader的es6模块化 ,使用commonjs
+          esModule: false
+        }
+      }
     ]
   },
   plugins: [
@@ -100,9 +113,24 @@ module.exports = merge(webpackConfig, {
         ]
       }
     }),
+    // 使用插件生成Html入口文件❤️（路径问题）
+    new HtmlWebpackPlugin({
+      // 源模版文件
+      template: path.resolve(__dirname, '/public/index.html'),
+      minify: {
+        collapseWhitespace: true,//清除空格
+        removeComments: true,//移除注释
+        removeAttributeQuotes: true,//清除多余引号
+      },
+      // 输出文件
+      filename: 'index.html'
+        //为所有js和css等静态资源添加hash 有效解决缓存问题
+        hash: true
+    }),
+    // 拷贝static下的文件
     new CopyWebpackPlugin([
       {
-        from: path.resolve(__dirname, '../public'),
+        from: path.resolve(__dirname, '/public'),
         to: path.resolve(__dirname, '/dist')
       }
     ]),
