@@ -1,13 +1,13 @@
 <template>
-	<div class="color">{{ text }}</div>
+	<div id="app">
+		<p>zzz</p>
+	</div>
 </template>
 
 <script>
 export default {
 	data() {
-		return {
-			text: 'vue项目成功运行了'
-		}
+		return {}
 	}
 }
 </script>

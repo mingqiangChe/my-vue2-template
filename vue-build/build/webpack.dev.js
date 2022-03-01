@@ -11,6 +11,94 @@ const webpack = require('webpack')
 module.exports = merge(webpackConfig, {
   mode: 'development',
   devServer: {
+    contentBase: '/dist',
+    //端口号
+    port: '8383',
+    open: true,
+    // inline: true,
+    // historyApiFallback: true,//在开发单页应用时非常有用，它依赖于HTML5 history API，如果设置为true，所有的跳转将指向index.html
+    hot: true,//允许热加载
+    proxy: {
+      "/api": {
+        //代理路径 例如 https://baidu.com
+        target: "https://baidu.com",
+        // 将主机标头的原点更改为目标URL
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          "^/api": ""
+        }
+      }
+    },
+    //启用source-map方便调试
+    devtool: 'cheap-module-eval-source-map',
+
+    //生产环境不需要进行压缩
+    // module: {
+    //   rules: [
+    //     {
+    //       test: /\.css$/,
+    //       use: [
+    //         {
+    //           loader: 'style-loader'
+    //         },
+    //         {
+    //           loader: 'css-loader',
+    //         }
+    //       ]
+    //     },
+    //     {
+    //       test: /\.(scss|sass)$/,
+    //       use: [
+    //         {
+    //           loader: 'style-loader'
+    //         },
+    //         {
+    //           loader: 'css-loader',
+    //           options: {
+    //             importLoaders: 2
+    //           }
+    //         },
+    //         {
+    //           loader: 'sass-loader',
+    //           options: {
+    //             implementation: require('dart-sass')
+    //           }
+    //         },
+    //         {
+    //           loader: 'postcss-loader'
+    //         }
+    //       ]
+    //     },
+    //   ]
+    // },
+
+    plugins: [
+      //定义全局变量
+      new webpack.DefinePlugin({
+        'process.env': {
+          //这里必须要解析成字符串进行判断，不然将会被识别为一个变量
+          NODE_ENV: JSON.stringify('development')
+        }
+      }),
+      //--config是可以设置我们执行哪个webpack文件，默认是执行webpack.config.js,但是我们现在修改文件名了，所以我们要设置一下
+      // "dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack.config.dev.js"
+    ]
+  }
+})
+
+
+/** //引入webpack-merge插件进行合并
+const { merge } = require('webpack-merge');
+//引入webpack.base.conf.js文件
+const base = require('./webpack.config.js');
+//引入webpack
+const webpack = require('webpack');
+//进行合并，将webpack.base.conf.js中的配置合并到这
+module.exports = merge(base, {
+  //模块参数
+  mode: 'development',
+  devServer: {
     contentBase: './dist',
     //端口号
     port: '8383',
@@ -19,57 +107,12 @@ module.exports = merge(webpackConfig, {
     hot: true//允许热加载
   },
   //启用source-map方便调试
-  devtool: 'cheap-module-eval-source-map',
-
-  //生产环境不需要进行压缩
-  // module: {
-  //   rules: [
-  //     {
-  //       test: /\.css$/,
-  //       use: [
-  //         {
-  //           loader: 'style-loader'
-  //         },
-  //         {
-  //           loader: 'css-loader',
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       test: /\.(scss|sass)$/,
-  //       use: [
-  //         {
-  //           loader: 'style-loader'
-  //         },
-  //         {
-  //           loader: 'css-loader',
-  //           options: {
-  //             importLoaders: 2
-  //           }
-  //         },
-  //         {
-  //           loader: 'sass-loader',
-  //           options: {
-  //             implementation: require('dart-sass')
-  //           }
-  //         },
-  //         {
-  //           loader: 'postcss-loader'
-  //         }
-  //       ]
-  //     },
-  //   ]
-  // },
-
+  devtool: 'source-map',
   plugins: [
     //定义全局变量
     new webpack.DefinePlugin({
-      'process.env': {
-        //这里必须要解析成字符串进行判断，不然将会被识别为一个变量
-        NODE_ENV: JSON.stringify('development')
-      }
-    }),
-    //--config是可以设置我们执行哪个webpack文件，默认是执行webpack.config.js,但是我们现在修改文件名了，所以我们要设置一下
-    // "dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack.config.dev.js"
+      //这里必须要解析成字符串进行判断，不然将会被识别为一个变量
+      DEV: JSON.stringify('dev')
+    })
   ]
-})
+});  **/

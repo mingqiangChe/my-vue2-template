@@ -3,9 +3,10 @@
 // 压缩混淆(压缩混淆代码，清除代码空格，注释等信息使其变得难以阅读)
 // 文件压缩/base64编码(压缩代码，减少线上环境文件包的大小)
 // 去除无用的代码
-const webpack = require('webpack');
+
 const { merge } = require('webpack-merge');
-const webpackConfig = require('./webpack.config')
+const webpack = require('webpack')
+const webpackConfig = require('./webpack.config.js')
 // 将css提取到单独的文件中
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
@@ -101,16 +102,16 @@ module.exports = merge(webpackConfig, {
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, '../public'),
-        to: path.resolve(__dirname, '../dist')
+        to: path.resolve(__dirname, '/dist')
       }
     ]),
     // 清除无用代码
     new CleanWebpackPlugin({
-      path: '../dist'
+      path: '/dist'
     }),
     new BundleAnalyzerPlugin({
       analyzerMode: 'static'
-    })
+    }),
     // 使用插件定义全局变量DEV
     new webpack.DefinePlugin({
       'process.env': {
@@ -121,3 +122,44 @@ module.exports = merge(webpackConfig, {
     // "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
   ]
 })
+
+
+// "scripts": {
+  //   "test": "echo \"Error: no test specified\" && exit 1",
+  //   "build": "webpack --config webpack.config.js",
+  //   "serve": "webpack serve --config webpack.config.js"
+  // },
+
+/** const { merge } = require('webpack-merge');
+const base = require('./webpack.config.js');
+
+const path = require('path');
+const OptimizeCss = require('optimize-css-assets-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const webpack = require('webpack');
+
+module.exports = merge(base, {
+  mode: 'production',
+  optimization: {
+    minimizer: [
+      //压缩CSS代码
+      new OptimizeCss(),
+      //压缩js代码
+      new UglifyJsPlugin({
+        //启用文件缓存
+        cache: true,
+        //使用多线程并行运行提高构建速度
+        parallel: true,
+        //使用 SourceMaps 将错误信息的位置映射到模块
+        sourceMap: true
+      })
+    ]
+  },
+  plugins: [
+    //使用插件定义全局变量DEV
+    new webpack.DefinePlugin({
+      DEV: JSON.stringify('production')
+    })
+  ]
+
+}); **/
