@@ -2,6 +2,7 @@
 // 模块热更新  （本地开启服务，实时更新）
 // sourceMap    (方便打包调试)
 // 接口代理　 配置proxyTable解决开发环境中的跨域问题)
+
 // 代码规范检查 (代码规范检查工具)
 const merge = require('webpack-merge')
 //引入webpack.conf.js文件
@@ -15,8 +16,8 @@ module.exports = merge(webpackConfig, {
     //端口号
     port: '8383',
     open: true,
-    // inline: true,
-    // historyApiFallback: true,//在开发单页应用时非常有用，它依赖于HTML5 history API，如果设置为true，所有的跳转将指向index.html
+    inline: true,
+    historyApiFallback: true,//在开发单页应用时非常有用，它依赖于HTML5 history API，如果设置为true，所有的跳转将指向index.html
     hot: true,//允许热加载
     proxy: {
       "/api": {
@@ -31,48 +32,7 @@ module.exports = merge(webpackConfig, {
       }
     },
     //启用source-map方便调试
-    devtool: 'cheap-module-eval-source-map',
-
-    //生产环境不需要进行压缩
-    // module: {
-    //   rules: [
-    //     {
-    //       test: /\.css$/,
-    //       use: [
-    //         {
-    //           loader: 'style-loader'
-    //         },
-    //         {
-    //           loader: 'css-loader',
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       test: /\.(scss|sass)$/,
-    //       use: [
-    //         {
-    //           loader: 'style-loader'
-    //         },
-    //         {
-    //           loader: 'css-loader',
-    //           options: {
-    //             importLoaders: 2
-    //           }
-    //         },
-    //         {
-    //           loader: 'sass-loader',
-    //           options: {
-    //             implementation: require('dart-sass')
-    //           }
-    //         },
-    //         {
-    //           loader: 'postcss-loader'
-    //         }
-    //       ]
-    //     },
-    //   ]
-    // },
-
+    devtool: 'source-map',
     plugins: [
       //定义全局变量
       new webpack.DefinePlugin({
@@ -81,8 +41,6 @@ module.exports = merge(webpackConfig, {
           NODE_ENV: JSON.stringify('development')
         }
       }),
-      //--config是可以设置我们执行哪个webpack文件，默认是执行webpack.config.js,但是我们现在修改文件名了，所以我们要设置一下
-      // "dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack.config.dev.js"
     ]
   }
 })
