@@ -17,19 +17,19 @@ module.exports = {
   // console.log(NODE_ENV)
 
   // 模块别名的配置，为了使用方便，一般来说所有模块都是要配置一下别名的
-  alias: {
-    'vue': path.resolve(__dirname, '/src/services/lib/vue.min.js'),
-    'axios': path.resolve(__dirname, '/src/services/lib/axios.min.js')
-  }
+  // alias: {
+  //   'vue': path.resolve(__dirname, '/src/services/lib/vue.min.js'),
+  //   'axios': path.resolve(__dirname, '/src/services/lib/axios.min.js')
+  // }
   entry: {
     // 配置多入口文件vendors: [ 'vue', 'axios' ] 单个入口就是main.js
     // main: path.resolve(__dirname, '/src/main.js'),
     index: path.resolve(__dirname, '/src/main.js'),
-    vendors: ('vue', 'axios')
+    // vendors: ('vue', 'axios')
   },
   output: {
     // 配置打包文件输出的目录
-    path: path.resolve(__dirname, '/dist'),
+    path: path.resolve(__dirname, 'dist'),
     // 指定生成的 js 文件名称
     filename: 'js/[name].[hash:8].js',
     // 生成的 chunk 名称
@@ -42,6 +42,27 @@ module.exports = {
   module: {
     //loader
     rules: [
+      //正则表达式匹配.vue为后缀的文件
+      {
+        test: /\.vue$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'cache-loader'
+          },
+          {
+            loader: 'thread-loader'
+          },
+          {
+            loader: 'vue-loader',
+            options: {
+              compilerOptions: {
+                preserveWhitespace: false
+              },
+            }
+          }
+        ]
+      },
       //正则表达式匹配.less为后缀的文件
       //使用lodaer来处理
       {
@@ -69,26 +90,6 @@ module.exports = {
       {
         test: /\.html$/,
         use: ['html-withimg-loader']
-      }, {
-        //正则表达式匹配.vue为后缀的文件
-        test: /\.vue$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'cache-loader'
-          },
-          {
-            loader: 'thread-loader'
-          },
-          {
-            loader: 'vue-loader',
-            options: {
-              compilerOptions: {
-                preserveWhitespace: false
-              },
-            }
-          }
-        ]
       },
       //正则表达式匹配.jsx为后缀的文件
       {

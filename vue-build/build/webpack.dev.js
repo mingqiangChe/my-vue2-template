@@ -1,5 +1,5 @@
 // 开发环境配置
-// 模块热更新  （本地开启服务，实时更新）
+// 模块热更新webpack-dev-server  （本地开启服务，实时更新）
 // sourceMap    (方便打包调试)
 // 接口代理　 配置proxyTable解决开发环境中的跨域问题)
 
@@ -19,18 +19,18 @@ module.exports = merge(webpackConfig, {
     inline: true,
     historyApiFallback: true,//在开发单页应用时非常有用，它依赖于HTML5 history API，如果设置为true，所有的跳转将指向index.html
     hot: true,//允许热加载
-    proxy: {
-      "/api": {
-        //代理路径 例如 https://baidu.com
-        target: "https://baidu.com",
-        // 将主机标头的原点更改为目标URL
-        changeOrigin: true,
-        ws: true,
-        pathRewrite: {
-          "^/api": ""
-        }
-      }
-    },
+    // proxy: {
+    //   "/api": {
+    //     //代理路径 例如 https://baidu.com
+    //     target: "https://baidu.com",
+    //     // 将主机标头的原点更改为目标URL
+    //     changeOrigin: true,
+    //     ws: true,
+    //     pathRewrite: {
+    //       "^/api": ""
+    //     }
+    //   }
+    // },
     //启用source-map方便调试
     devtool: 'source-map',
     plugins: [

@@ -1,6 +1,8 @@
 <template>
 	<div id="app">
-		<p>zzz</p>
+		<keep-alive>
+			<router-view></router-view>
+		</keep-alive>
 	</div>
 </template>
 
@@ -12,7 +14,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .color {
 	color: red;
 }

@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Com from '../views/module1/page1/components/com1/com1'
+import Com from '../views/module1/page1/components/com1/com1'
 
 Vue.use(VueRouter)
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'Com',
-  //   component: Com
-  // },
+  {
+    path: '/',
+    name: 'Com',
+    component: Com
+  },
   // {
   //   path: '/about',
   //   name: 'About',

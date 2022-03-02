@@ -13,7 +13,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssnanoPlugin = require('@intervolga/optimize-cssnano-plugin');
 // css压缩
 const OptimizeCss = require('optimize-css-assets-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+// const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 //压缩js代码
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -135,9 +135,9 @@ module.exports = merge(webpackConfig, {
       }
     ]),
     // 清除无用代码
-    new CleanWebpackPlugin({
-      path: '/dist'
-    }),
+    // new CleanWebpackPlugin({
+    //   path: '/dist'
+    // }),
     new BundleAnalyzerPlugin({
       analyzerMode: "server",
       analyzerHost: "127.0.0.1",
