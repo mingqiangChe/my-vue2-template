@@ -20,11 +20,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 // 删除/清理构建文件夹的 webpack 插件
 const  { CleanWebpackPlugin }  =  require ( 'clean-webpack-plugin' ) ;
 webpackConfig = {
-  // entry: 'index.js',
-  // output: {
-  //   path: __dirname + '/dist',
-  //   filename: 'index_bundle.js'
-  // },
   module: {
     rules: [{
       test: /\.css$/,
@@ -46,9 +41,12 @@ webpackConfig = {
         filename: _modeflag ? "styles/[name].[hash:5].css" : "styles/[name].css",
         chunkFilename: _modeflag ? "styles/[id].[hash:5].css" : "styles/[id].css"
       }),
-    new PurifyCSSPlugin({
-      paths: glob.sync(join(__dirname, './dist/*.html')),
-    }),
+      
+      // 控制css打包
+    // new PurifyCSSPlugin({
+    //   paths: glob.sync(join(__dirname, './dist/*.html')),
+    // }),
+
     new  CleanWebpackPlugin ({
        // 模拟文件的移除
     // 
