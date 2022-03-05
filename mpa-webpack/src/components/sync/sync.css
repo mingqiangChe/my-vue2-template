@@ -1,8 +1,0 @@
-.test{
-  --fontColor:yellow;
-  color: var(--fontColor);
-}
-.aa{
-  font-size: 66px;
-  color: brown;
-}
