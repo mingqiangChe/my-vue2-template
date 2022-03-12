@@ -3,13 +3,12 @@
 // css不需要提取到css文件
 // sourceMap
 // ...
-
-const {merge} = require('webpack-merge')
+const { merge } = require('webpack-merge')
 const webpackConfig = require('./webpack.config.js')
 const webpack = require('webpack')
 module.exports = merge(webpackConfig, {
   mode: 'development',
-  // devtool: 'cheap-module-eval-source-map',
+  devtool: 'cheap-module-eval-source-map',
   module: {
     rules: [
       {

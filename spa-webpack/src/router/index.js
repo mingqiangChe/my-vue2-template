@@ -5,7 +5,7 @@ export default new VueRouter({
   mode: 'hash',
   routes: [
     {
-      path: '/Home',
+      path: '/',
       component: () => import(/* webpackChunkName: "Home" */ '../views/Home.vue')
       // component: Home
     },

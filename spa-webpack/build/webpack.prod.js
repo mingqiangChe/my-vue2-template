@@ -12,7 +12,7 @@ webpack-merge 合并 webpack配置
 copy-webpack-plugin 用户拷贝静态资源
   **/
 const path = require('path')
-const {merge} = require('webpack-merge')
+const { merge } = require('webpack-merge')
 const webpack = require('webpack')
 const webpackConfig = require('./webpack.config')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -102,7 +102,7 @@ module.exports = merge(webpackConfig, {
     ]),
     new CleanWebpackPlugin(),
     new BundleAnalyzerPlugin({
-      analyzerMode:'static'
+      analyzerMode: 'static'
     })
   ]
 })
